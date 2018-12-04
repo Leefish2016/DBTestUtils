@@ -9,7 +9,7 @@ public class MainTest {
 
     @Test
     public void test() throws Exception {
-        Bucket bucket = Bucket.create("t_member").setNum(500)
+        Bucket bucket = Bucket.create("t_member").setNum(1000)
                 .addFiled("id", String.class)
                     .setStrategy(StrategyUtil.UUID_GENERATOR)
                 .addFiled("username", String.class)
@@ -18,6 +18,8 @@ public class MainTest {
                     .setStrategy(StrategyUtil.PASSWORD_GENERATOR)
                 .addFiled("wx_id", String.class)
                     .setStrategy(StrategyUtil.UUID_GENERATOR)
+                .addFiled("wx_name", String.class)
+                    .setStrategy(StrategyUtil.CHINESE_NAME_GENERATOR)
                 .addFiled("head_img", String.class)
                     .setStrategy(() -> "http://img2.imgtn.bdimg.com/it/u=2175610530,2932833450&fm=26&gp=0.jpg")
                 .addFiled("gender", Byte.class)
@@ -26,6 +28,12 @@ public class MainTest {
                     .setStrategy(DateStrategy.builder().build())
                 .addFiled("shop_id", String.class)
                     .setOtherTable("t_shop", "id")
+                    .singleColumn(obj -> obj)
+                .addFiled("city_id", String.class)
+                    .setOtherTable("t_area", "id")
+                    .singleColumn(obj -> obj)
+                .addFiled("city_name", String.class)
+                    .setOtherTable("t_area", "name")
                     .singleColumn(obj -> obj);
 
 
